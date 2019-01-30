@@ -1,5 +1,5 @@
 /*
- * Spark streaming to ingest identity deregistered data to hbase
+ * Spark streaming to ingest deregistered data to hbase
  *  
  */
 
