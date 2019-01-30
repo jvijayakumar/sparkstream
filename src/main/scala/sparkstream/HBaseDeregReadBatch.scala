@@ -28,16 +28,16 @@ object HBaseDeregReadBatch {
     }
     // set up HBase Table configuration
     val conf = HBaseConfiguration.create()
-    val tableName = "nike_user_dereg"
+    val tableName = "user_dereg"
     val s3_path = args(1)
 
     val confPathString = "/usr/lib/hbase/conf/hbase-site.xml" 
     conf.addResource(new Path(confPathString)) 
-    //conf.set(HConstants.ZOOKEEPER_QUORUM, "10.184.216.115")
     conf.set(HConstants.ZOOKEEPER_QUORUM, args(0))
     
 
     //Configuration setting for getting hbase data
+  
     conf.set(TableInputFormat.INPUT_TABLE, tableName)
     conf.set("hbase.mapred.outputtable", tableName)
     conf.set("mapreduce.outputformat.class", "org.apache.hadoop.hbase.mapreduce.TableOutputFormat");
@@ -65,7 +65,7 @@ object HBaseDeregReadBatch {
 
 
     // The schema is encoded in a string
-    val schemaString = "upm_id dereg_date"
+    val schemaString = "user_id dereg_date"
 
     // Generate the schema based on the string of schema
     val fields = schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true))
