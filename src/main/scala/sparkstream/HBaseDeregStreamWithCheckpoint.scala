@@ -25,12 +25,12 @@ import org.apache.hadoop.mapreduce.Job
 import net.liftweb.json._
 
 object HBaseDeregStreamWithCheckpoint extends Serializable {
-  final val tableName = "nike_user_dereg"
+  final val tableName = "user_dereg"
   final val cfDeregBytes = Bytes.toBytes("dereg")
-  final val colUpmBytes = Bytes.toBytes("upm_id")
+  final val coluserBytes = Bytes.toBytes("user_id")
   final val colDateBytes = Bytes.toBytes("dereg_date")
   // schema for Dereg data   
-  case class Dereg(upm_id: String, dereg_date: String)
+  case class Dereg(user_id: String, dereg_date: String)
   case class Event(id: String, event_time: String,event_id:String,dtrace_id:String)
   case class Dereg_events(event_details: Event)
   implicit val formats = DefaultFormats 
@@ -40,9 +40,9 @@ object HBaseDeregStreamWithCheckpoint extends Serializable {
     def parseDereg(str: String): Dereg = {
       val parsedJson = parse(str)
       val a=parsedJson.extract[Dereg_events]
-      val upm_id= a.event_details.id
+      val user_id= a.event_details.id
       val dereg_date=a.event_details.event_time
-      Dereg(upm_id, dereg_date)
+      Dereg(user_id, dereg_date)
     }
     //  Convert a row of Dereg object data to an HBase put object
     def convertToPut(dereg: Dereg): (ImmutableBytesWritable, Put) = {
