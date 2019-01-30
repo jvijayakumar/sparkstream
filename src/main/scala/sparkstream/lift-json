@@ -1,0 +1,14 @@
+import net.liftweb.json._
+import net.liftweb.json.JsonParser._
+implicit val formats = DefaultFormats
+
+case class Event(id: String, event_time: String,event_id:String,dtrace_id:String)
+case class Dereg(event_details: Event)
+val json = parse("""{"metadata":{"version":"1","event_type":"userDeregistration"},
+"event_details":{"id":"ff7bccb5-62d4-46d5-9b7d-38ed88e897fe","event_time":1505547169238,"event_id":"9c9f2ccd-03c2-4659-b1e3-b16e91d59f57","dtrace_id":"7853fab14f399f04"},"meta-data":{"id":"02331532fc2a336eec438972e31bdea4","snsTopicArn":"arn:aws:sns:us-west-2:433719404598:idnuser-delete-topic","origin":"205.251.233.38","routing-key":"identity-delete","lasertrout-forwarder":{"tag":"sns.identity-delete","event-type":"sns","timestamp":"2017-09-16T07:32:49.000+00:00","hostname":"ip-172-16-58-124","pipeline-id":"da5dc7b8-4156-4dd2-81e3-8c91b8c83f0e","component-id":"4dab3e63-e275-41f2-a27b-adb979ed666a"},"lasertrout-aggregator":{"tag":"sns.identity-delete","timestamp":"2017-09-16T07:32:49.000+00:00","hostname":"ip-172-16-156-222","pipeline-id":"da5dc7b8-4156-4dd2-81e3-8c91b8c83f0e","component-id":"4dab3e63-e275-41f2-a27b-adb979ed666a"},"astrobass":{"timestamp":"2017-09-16T07:32:53.151Z","pipeline-id":"da5dc7b8-4156-4dd2-81e3-8c91b8c83f0e","module-id":"fab879e1-7893-4ed1-8aeb-3d651269cccf"}}} """)
+
+val a=json.extract[Dereg]
+val id= a.event_details.id
+val date=a.event_details.event_time
+
+
