@@ -42,7 +42,7 @@ object HBaseDeregReadBatch {
     conf.set("hbase.mapred.outputtable", tableName)
     conf.set("mapreduce.outputformat.class", "org.apache.hadoop.hbase.mapreduce.TableOutputFormat");
 
-    val sparkConf = new SparkConf().setAppName("HBaseReadNike_user_dereg")
+    val sparkConf = new SparkConf().setAppName("HBaseRead")
     val sc = new SparkContext(sparkConf)
     val spark = new org.apache.spark.sql.hive.HiveContext(sc)
 
